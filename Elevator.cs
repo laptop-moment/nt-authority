@@ -33,7 +33,7 @@ namespace NtAuthority
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool DuplicateHandle(IntPtr hSourceProcessHandle, IntPtr hSourceHandle, IntPtr hTargetProcessHandle, ref IntPtr lpTargetHandle, uint dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, uint dwOptions);
 
-    public static void Run(int parentProcessId, string binaryPath)
+    public static void Run(int parentProcessId, string binaryPath, bool hidden) //todo: handle args
     {
       // STARTUPINFOEX members
       const int PROC_THREAD_ATTRIBUTE_PARENT_PROCESS = 0x00020000;
@@ -46,6 +46,8 @@ namespace NtAuthority
       // dwCreationFlags
       const uint EXTENDED_STARTUPINFO_PRESENT = 0x00080000;
       const uint CREATE_NEW_CONSOLE = 0x00000010;
+      const uint CREATE_NO_WINDOW = 0x08000000;
+
 
       var pInfo = new PROCESS_INFORMATION();
       var siEx = new STARTUPINFOEX();
@@ -73,7 +75,7 @@ namespace NtAuthority
       var ts = new SECURITY_ATTRIBUTES();
       ps.nLength = Marshal.SizeOf(ps);
       ts.nLength = Marshal.SizeOf(ts);
-      bool ret = CreateProcess(binaryPath, null, ref ps, ref ts, true, EXTENDED_STARTUPINFO_PRESENT | CREATE_NEW_CONSOLE, IntPtr.Zero, null, ref siEx, out pInfo);
+      bool ret = CreateProcess(binaryPath, null, ref ps, ref ts, true, EXTENDED_STARTUPINFO_PRESENT | (hidden ? CREATE_NO_WINDOW : CREATE_NEW_CONSOLE), IntPtr.Zero, null, ref siEx, out pInfo);
       String stringPid = pInfo.dwProcessId.ToString();
 
     }

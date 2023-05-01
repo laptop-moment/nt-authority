@@ -13,7 +13,7 @@ namespace NtAuthority
       int parentProcessId;
       Process[] explorerproc = Process.GetProcessesByName(ProcessToSpoof);
       parentProcessId = explorerproc[0].Id;
-      Elevator.Run(parentProcessId, binaryPath);
+      Elevator.Run(parentProcessId, binaryPath, args.Length > 2 ? (args[2] == "hidden" || args[2] == "hide" || args[2] == "noshow") : false);
     }
   }
 }
