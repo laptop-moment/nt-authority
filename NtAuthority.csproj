@@ -7,6 +7,24 @@
     <Nullable>enable</Nullable>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <StartupObject>NtAuthority.Program</StartupObject>
+    <SignAssembly>False</SignAssembly>
+    <Title>Process Elevation</Title>
+    <Description>Runs a process under a predetermined parent process.</Description>
+    <PackageProjectUrl>https://github.com/laptop-moment/nt-authority</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/laptop-moment/nt-authority.git</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
